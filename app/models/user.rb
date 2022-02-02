@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :email, :username, uniqueness: true, presence: true
-  validates :password, length: { minimum: 6 }
+  validates :encrypted_password, length: { minimum: 6 }
 
   validates :email,
             format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/,
