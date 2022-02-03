@@ -33,27 +33,27 @@ end
 puts "Seeding tweets"
 users = User.all
 users.each do |user|
-  # rand(1..2).times do
+  rand(1..2).times do
     new_tweet = Tweet.new
     new_tweet.user = user
     new_tweet.body = Faker::Lorem.paragraph(sentence_count: rand(1..3))
     puts "Tweet not created. Errors: #{new_tweet.errors.full_messages}" unless new_tweet.save
-  # end
+  end
 end
 
-# puts "Seeding replies"
-# tweets = Tweet.all
-# users = User.all
-# users.each do |user|
-#   tweets.each do |tweet|
-#     rand(0..2).times do
-#       new_reply = Tweet.new(parent_id: tweet.id)
-#       new_reply.body = Faker::Lorem.paragraph(sentence_count: rand(1..3))
-#       new_reply.user = user
-#       puts "Reply not created. Errors: #{new_reply.errors.full_messages}" unless new_reply.save
-#     end
-#   end
-# end
+puts "Seeding replies"
+tweets = Tweet.all
+users = User.all
+users.each do |user|
+  tweets.each do |tweet|
+    rand(0..2).times do
+      new_reply = Tweet.new(parent_id: tweet.id)
+      new_reply.body = Faker::Lorem.paragraph(sentence_count: rand(1..3))
+      new_reply.user = user
+      puts "Reply not created. Errors: #{new_reply.errors.full_messages}" unless new_reply.save
+    end
+  end
+end
 
 puts "Seeding likes"
 users = User.all
