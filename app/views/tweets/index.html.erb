@@ -1,8 +1,10 @@
+<h1 class="heading center-text mb-4">Home</h1>
+<%= render "form", tweet: @tweet %>
 
 <%@tweets.each do |tweet|%>
-  <div style="margin: 20px 0; padding: 5px; border: 1px solid black">
+  <div>
     <div>
-    <%= image_tag(User.find(tweet.user_id).avatar) if User.find(tweet.user_id).avatar.attached? %>  
+    <%= image_tag(User.find(tweet.user_id).avatar) if User.find(tweet.user_id).avatar.attached?%>  
     </div>
     <div>
     <%=User.find(tweet.user_id).name%>
