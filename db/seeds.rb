@@ -6,13 +6,16 @@ Tweet.destroy_all
 Like.destroy_all
 
 puts "Creating admin"
-admin = User.create(
+admin = User.new(
   username: "@admin",
   name: "admin",
   email: "admin@mail.com",
   password: "supersecret",
   role: 1
 )
+admin.avatar.attach(io: File.open("app/assets/images/image_profile_default.png"), filename: "admin.png")
+puts "Admin not created. Errors: #{admin.errors.full_messages}" unless admin.save
+
 
 puts "Seeding users"
 i = 1
