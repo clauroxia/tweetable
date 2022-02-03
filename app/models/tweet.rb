@@ -12,4 +12,5 @@ class Tweet < ApplicationRecord
                      foreign_key: "parent_id",
                      dependent: :destroy,
                      inverse_of: "parent"
+  has_many :likes, dependent: :destroy
 end
