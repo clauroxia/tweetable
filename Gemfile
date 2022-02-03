@@ -62,6 +62,7 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-rails", require: false
   gem "web-console"
+  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
