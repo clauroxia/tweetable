@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[show edit update destroy]
+  before_action :set_tweet, only: %i[show edit update destroy like unlike]
 
   def index
     @tweets = Tweet.all
@@ -68,9 +68,16 @@ class TweetsController < ApplicationController
 
   # Custom methods
 
-  def like; end
+  def like
+    like = Like.new(user_id: current_user.id, tweet_id: @tweet.id)
+    # redirect_to root_path if like.save
+    redirect_to root_path if like.save
+  end
 
-  def unlike; end
+  def unlike
+    like_to_destroy = Like.find_by(user_id: current_user.id, tweet_id: @tweet.id)
+    redirect_to root_path if like_to_destroy.destroy
+  end
 
   private
 
