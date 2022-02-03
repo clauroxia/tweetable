@@ -7,7 +7,8 @@ Like.destroy_all
 
 puts "Creating admin"
 admin = User.create(
-  username: "admin",
+  username: "@admin",
+  name: "admin",
   email: "admin@mail.com",
   password: "supersecret",
   role: 1

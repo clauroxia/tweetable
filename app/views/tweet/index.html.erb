@@ -1,0 +1,24 @@
+
+<%@tweets.each do |tweet|%>
+  <div style="margin: 20px 0; padding: 5px; border: 1px solid black">
+    <div>
+    <%= image_tag(User.find(tweet.user_id).avatar) if User.find(tweet.user_id).avatar.attached? %>  
+    </div>
+    <div>
+    <%=User.find(tweet.user_id).name%>
+    <%=User.find(tweet.user_id).username%>
+    </div>
+    <div>
+    <%=time_ago_in_words(tweet.updated_at)%> ago
+    </div>
+    <p>
+    <%=tweet.body%>
+    </p>
+    <div>
+    <%=tweet.likes_count%> likes
+    <%=tweet.replies_count%> replies
+    </div>
+  
+  </div>
+  
+<% end %>
