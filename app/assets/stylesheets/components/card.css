@@ -1,0 +1,14 @@
+.card {
+    margin-top: 20px;
+}
+
+.card__container{
+    margin: 0 20px;
+    padding: 20px 15px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.card__title {
+    color: var(--gray-400)
+}
