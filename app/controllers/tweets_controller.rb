@@ -4,7 +4,9 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new
   end
 
-  def show; end
+  def show
+    @tweet = Tweet.find(params[:id])
+  end
 
   def create
     @tweet = Tweet.new(tweet_params)
@@ -17,9 +19,12 @@ class TweetsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @tweet = Tweet.find(params[:id])
+  end
 
   def update
+    @tweet = Tweet.find(params[:id])
     if @tweet.update(tweet_params)
       redirect_to root_path, notice: "Tweet successfully updated"
     else
@@ -29,6 +34,7 @@ class TweetsController < ApplicationController
 
   def destroy
     tweet = Tweet.find(params[:id])
+    tweet.destroy
     redirect_to root_path, notice: "Tweet deleted", status: :see_other
   end
 
