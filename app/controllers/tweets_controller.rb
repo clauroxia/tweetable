@@ -35,7 +35,12 @@ class TweetsController < ApplicationController
   def destroy
     tweet = Tweet.find(params[:id])
     tweet.destroy
-    redirect_to root_path, notice: "Tweet deleted", status: :see_other
+
+    if params["tweet_id"]
+      redirect_to tweet_path(tweet), notice: "Tweet deleted", status: :see_other
+    else
+      redirect_to root_path, notice: "Tweet deleted", status: :see_other
+    end
   end
 
   # Custom methods

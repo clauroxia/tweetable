@@ -6,40 +6,41 @@
 
 
   <%@tweets.each do |tweet|%>
-    <div  class="tweet">
-      <div class="tweet__header">
-        <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__container--icon") if User.find(tweet.user_id).avatar.attached? %> 
-        <div class="tweet__header--data">
-          <div class="flex">
-              <p class="tweet__header--name">
-                  <%=User.find(tweet.user_id).name%>
-              </p>
-              <p class="tweet__header--user">
-                  <%=User.find(tweet.user_id).username%>
-              </p>
+    <% if tweet.parent_id == nil%>
+      <div  class="tweet">
+        <div class="tweet__header">
+          <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__container--icon") if User.find(tweet.user_id).avatar.attached? %> 
+          <div class="tweet__header--data">
+            <div class="flex">
+                <p class="tweet__header--name">
+                    <%=User.find(tweet.user_id).name%>
+                </p>
+                <p class="tweet__header--user">
+                    <%=User.find(tweet.user_id).username%>
+                </p>
+            </div>
+            <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
+          </div> 
+        </div>
+        <p class="mb-2">
+          <%=tweet.body%>
+        </p>
+        <div class="tweet__actions">
+          <%= link_to "Show tweet", tweet_path(tweet)%>
+          <%= link_to "Edit tweet", edit_tweet_path(tweet)%>
+          <%= button_to "Delete tweet", tweet_path(tweet), method: :delete, "data-turbo": "false" %>
+          <div class="flex tweet__action ">
+            <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
+            <p><%=tweet.replies_count%> </p>
           </div>
-          <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
-        </div> 
-      </div>
-      <p class="mb-2">
-        <%=tweet.body%>
-      </p>
-      <div class="tweet__actions">
-        <%= link_to "Show tweet", tweet_path(tweet)%>
-        <%= link_to "Edit tweet", edit_tweet_path(tweet)%>
-        <%= button_to "Delete tweet", tweet_path(tweet), method: :delete, "data-turbo": "false" %>
-        <div class="flex tweet__action ">
-          <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
-          <p><%=tweet.replies_count%> </p>
+          <div class="flex tweet__action ">
+            <%=image_tag "icons/heart.svg", class: "footer__students--icon"%>
+            <%=tweet.likes_count%> 
+          </div>
         </div>
-        <div class="flex tweet__action ">
-          <%=image_tag "icons/heart.svg", class: "footer__students--icon"%>
-          <%=tweet.likes_count%> 
-        </div>
+      
       </div>
-    
-    </div>
-    
+    <% end %>
   <% end %>
 
 </section>
