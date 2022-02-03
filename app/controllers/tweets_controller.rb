@@ -4,7 +4,9 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new
   end
 
-  def show; end
+  def show
+    @tweet = Tweet.find(params[:id])
+  end
 
   def create
     @tweet = Tweet.new(tweet_params)
@@ -17,19 +19,37 @@ class TweetsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @tweet = Tweet.find(params[:id])
+    @parent_tweet = Tweet.find(params["tweet_id"]) if params["tweet_id"]
+  end
 
   def update
-    if @tweet.update(tweet_params)
-      redirect_to root_path, notice: "Tweet successfully updated"
-    else
-      render :edit, notice: "Tweet could not be updated", status: :unprocessable_entity
+    @tweet = Tweet.find(params[:id])
+    if params["tweet_id"]
+      if @tweet.update(tweet_params)
+        redirect_to tweet_path(params["tweet_id"]), notice: "Tweet successfully updated"
+      else
+        render :edit, notice: "Tweet could not be updated", status: :unprocessable_entity
+      end
+    elsif !params["tweet_id"]
+      if @tweet.update(tweet_params)
+        redirect_to root_path, notice: "Tweet successfully updated"
+      else
+        render :edit, notice: "Tweet could not be updated", status: :unprocessable_entity
+      end
     end
   end
 
   def destroy
     tweet = Tweet.find(params[:id])
-    redirect_to root_path, notice: "Tweet deleted", status: :see_other
+    tweet.destroy
+
+    if params["tweet_id"]
+      redirect_to tweet_path(params["tweet_id"]), notice: "Tweet deleted", status: :see_other
+    else
+      redirect_to root_path, notice: "Tweet deleted", status: :see_other
+    end
   end
 
   # Custom methods

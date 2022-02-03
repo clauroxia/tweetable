@@ -13,7 +13,7 @@
   <body>
    <header class="header">
       <div class="container navbar">
-        <a href="/index.html" class="logo">
+        <a href="/" class="logo">
           <img
             src="/logo.png"
             alt="Codeable"
@@ -22,7 +22,10 @@
         </a>
         <nav>
           <ul class="navbar-links" role="list">
-              <li><%= link_to 'Users',  class: "link" %></li>
+            <% if user_signed_in? %>
+            <p>Welcome <%= current_user.name %></p>
+            <% end %>
+            <li><%= link_to 'Users',  class: "link" %></li>
           </ul>
         </nav>
         <%=image_tag "icons/menu.svg", class: "navbar__menu-icon"%>
