@@ -29,7 +29,16 @@
     </div>
   </div>
 </div>
+<%= form_with(model: [@tweet, @new_tweet], method: :post) do |f| %>
+  <%= error_for(@tweet, :body) %>
+  <div>
+    <%= f.text_area :body, placeholder: "Write your tweet here...", autofocus: true%>
+  </div>
+  <%= f.submit "Reply"%>
+<% end %>
 
+<%= console %>
+<h2 class="heading mb-4">Replies</h2>
 <% @tweet.replies.each do |reply| %>
 <div  class="tweet">
   <div class="tweet__header">
