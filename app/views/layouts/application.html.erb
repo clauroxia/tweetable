@@ -11,8 +11,59 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+   <header class="header">
+      <div class="container navbar">
+        <a href="/index.html" class="logo">
+          <img
+            src="/logo.png"
+            alt="Codeable"
+            height="28"
+          />
+        </a>
+        <nav>
+          <ul class="navbar-links" role="list">
+              <li><%= link_to 'Users',  class: "link" %></li>
+          </ul>
+        </nav>
+        <%=image_tag "icons/menu.svg", class: "navbar__menu-icon"%>
+        <%=image_tag "icons/close.svg", class: "navbar__menu-icon-close"%>
+      </div>
+    </header>
+    </nav>
     <%= yield %>
+    <footer class="footer">
+      <div class="footer__content">
+        <p>© 2021 - Codeable Tweetable</p>
+        <p>Build with ♥ by</p>
+        <div class="footer__students mb-2">
+        
+          <div class="footer__students--link">
+            <%=image_tag "icons/linkedin.svg", class: "footer__students--icon"%>
+            <%= link_to "Austin Linares", "https://www.linkedin.com/in/austin-linares-castillo/", target: "_blank" %>
+          </div>
+
+           <div class="footer__students--link">
+             <%=image_tag "icons/linkedin.svg", class: "footer__students--icon"%>
+            <%= link_to "Alonso Zevallos", "https://www.linkedin.com/in/alonsozevallosfournier94/", target: "_blank" %>
+          </div>
+
+          <div class="footer__students--link">
+            <%=image_tag "icons/linkedin.svg", class: "footer__students--icon"%>
+           <%= link_to "Claudia Berríos", "https://www.linkedin.com/in/claudia-berr%C3%ADos-ledesma-939265b9/", target: "_blank" %>
+          </div>
+         
+        </div>
+        <div class="footer__students">
+          <div class="footer__students--link">
+            <%=image_tag "icons/linkedin.svg", class: "footer__students--icon"%>
+            <%= link_to "Marco Atencio", "https://www.linkedin.com/in/marcoatencio/", target: "_blank" %>
+          </div>
+          <div class="footer__students--link">
+            <%=image_tag "icons/linkedin.svg", class: "footer__students--icon"%>
+            <%= link_to "Renato", "https://www.linkedin.com/in/marcoatencio/", target: "_blank" %>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
