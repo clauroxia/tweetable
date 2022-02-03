@@ -18,7 +18,7 @@
       </p>
       <div class="tweet__actions">
         <%= link_to "Edit tweet", edit_tweet_path(@tweet)%>
-        <%= button_to "Delete tweet", tweet_path(@tweet), method: :delete, "data-turbo": "false" %>
+        <%= button_to "Delete tweet", tweet_path(@tweet), method: :delete, data: { turbo: "false" } %>
         <div class="flex tweet__action ">
           <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
           <p><%=@tweet.replies_count%> </p>
