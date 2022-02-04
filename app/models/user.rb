@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_one_attached :avatar
+  has_secure_token
 
   def self.from_omniauth(auth_hash)
     where(provider: auth_hash.provider, uid: auth_hash.uid).first_or_create do |user|
