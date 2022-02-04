@@ -13,4 +13,9 @@ class Tweet < ApplicationRecord
                      dependent: :destroy,
                      inverse_of: "parent"
   has_many :likes, dependent: :destroy
+
+  # Methods
+  def liked?(user)
+    !!self.likes.find { |like| like.user_id == user.id }
+  end
 end

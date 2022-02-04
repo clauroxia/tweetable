@@ -1,6 +1,6 @@
 <div  class="tweet">
   <div class="tweet__header">
-    <%= image_tag(User.find(@tweet.user_id).avatar, class:"tweet__container--icon") if User.find(@tweet.user_id).avatar.attached? %> 
+    <%= image_tag(User.find(@tweet.user_id).avatar, class:"tweet__container--icon", class:"tweet__header--icon") if User.find(@tweet.user_id).avatar.attached? %> 
     <div class="tweet__header--data">
       <div class="flex">
           <p class="tweet__header--name">
@@ -24,7 +24,11 @@
       <p><%=@tweet.replies_count%> </p>
     </div>
     <div class="flex tweet__action ">
-      <%=image_tag "icons/heart.svg", class: "footer__students--icon"%>
+      <% if @tweet.liked?(current_user) %>
+        <%= button_to image_tag("icons/heart.svg"), unlike_tweet_path(@tweet), method: :delete, data: { turbo: "false" }, class: "footer__students--icon" %>
+        <% else %>
+        <%= button_to image_tag("icons/heart.svg"), like_tweet_path(@tweet), class: "footer__students--icon" %>
+        <% end %>
       <%=@tweet.likes_count%> 
     </div>
   </div>
