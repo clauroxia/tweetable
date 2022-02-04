@@ -3,7 +3,7 @@
   <%= render "form", tweet: @tweet %>
   <%@tweets.each do |tweet|%>
     <% if tweet.parent_id == nil%>
-      <div class="tweet">
+      <div class="tweet mb-2">
         <%= link_to tweet_path(tweet) do %>
           <div class="tweet__header">
             <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__header--icon") if User.find(tweet.user_id).avatar.attached? %>
@@ -27,27 +27,31 @@
         <% end %>
         <div class="tweet__actions">
           <div class="flex">
-            <div class="flex tweet__action--left ">
+            <div class="tweet__action--left ">
               <%= button_to tweet_path(tweet), method: :delete, "data-turbo": "false" ,class: "tweet__action--delete" do %>
-                <%=image_tag "icons/delete.svg", class: "footer__students--icon"%>
+                <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
               <% end %>
             </div>
-            <div class="flex tweet__action--left ">
+            <div class="tweet__action--left ">
               <%= link_to edit_tweet_path(tweet) do %>
-                <%=image_tag "icons/edit.svg", class: "footer__students--icon"%>
+                <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
               <% end %>
             </div>
           </div>
           <div class="flex">
             <div class="flex tweet__action--right">
-              <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
+              <%=image_tag "icons/msn.svg", class: "tweet__action--icon"%>
               <p><%=tweet.replies_count%> </p>
             </div>
             <div class="flex tweet__action--right ">
-              <% if user_signed_in? && tweet.liked?(current_user) %>
-              <%= button_to image_tag("icons/heart.svg"), unlike_tweet_path(tweet), method: :delete, data: { turbo: "false" }, class: "footer__students--icon" %>
+              <% if tweet.liked?(current_user) %>
+                <%= button_to unlike_tweet_path(tweet), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
+                  <%=image_tag "icons/heart-active.svg", class: "tweet__action--icon"%>
+                <% end %>
               <% else %>
-              <%= button_to image_tag("icons/heart.svg"), like_tweet_path(tweet), class: "footer__students--icon" %>
+                <%= button_to unlike_tweet_path(tweet), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
+                  <%=image_tag "icons/heart.svg", class: "tweet__action--icon"%>
+                <% end %>
               <% end %>
               <%=tweet.likes_count%>
             </div>
