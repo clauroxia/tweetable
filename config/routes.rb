@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       delete "unlike", on: :member
     end
     resources :users, except: %i[new edit]
+    post "/login", to: "sessions#create"
+    delete "/logout", to: "sessions#destroy"
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -2,10 +2,14 @@ module Api
   class ApiController < ActionController::API
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    before_action :authorize_token
+    before_action :authorize_token, except: %i[index show]
     
     def not_found(error)
       render json: { errors: error.message }, status: :not_found
+    end
+
+    def current_user
+      @current_user ||= authenticate_token
     end
 
     def authorize_token
