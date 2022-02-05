@@ -25,7 +25,7 @@ i = 1
   member.name = Faker::Name.name
   member.email = "visitor#{i}@mail.com"
   member.password = "letmein"
-  member.avatar.attach(io: URI.open(Faker::Avatar.image(slug: "my-own-slug", size: "50x50")), filename: "visitor#{i}.jpg")
+  member.avatar.attach(io: URI.open(Faker::Avatar.unique.image(size: "50x50")), filename: "visitor#{i}.jpg")
   puts "Member not created. Errors: #{member.errors.full_messages}" unless member.save
   i +=1
 end
