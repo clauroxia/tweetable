@@ -35,11 +35,13 @@ class TweetsController < ApplicationController
 
   def edit
     # @tweet = Tweet.find(params[:id])
+    authorize(@tweet)
     @parent_tweet = Tweet.find(params["tweet_id"]) if params["tweet_id"]
   end
 
   def update
     # @tweet = Tweet.find(params[:id])
+    authorize(@tweet)
     if params["tweet_id"]
       if @tweet.update(tweet_params)
         redirect_to tweet_path(params["tweet_id"]), notice: "Tweet successfully updated"
@@ -57,6 +59,7 @@ class TweetsController < ApplicationController
 
   def destroy
     # tweet = Tweet.find(params[:id])
+    authorize(@tweet)
     @tweet.destroy
 
     if params["tweet_id"]
