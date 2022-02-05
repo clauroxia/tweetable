@@ -26,6 +26,7 @@ module Api
 
     def update
       # @tweet = Tweet.find(params[:id])
+      authorize(@tweet)
       if @tweet.update(tweet_params)
         render json: @tweet, status: :ok
       else
@@ -35,8 +36,8 @@ module Api
 
     def destroy
       # tweet = Tweet.find(params[:id])
+      authorize(@tweet)
       @tweet.destroy
-
       head :no_content
       
     end
