@@ -31,9 +31,9 @@ describe 'Tweets', type: :request do
       expect(actual_tweet["id"]).to eql(tweet.id)
     end
 
-    # it "returns http status not found" do
-    #   get "/api/genres/:id", params: { id: "xxx" }
-    #   expect(response).to have_http_status(:not_found)
-    # end
+    it "returns http status not found" do
+      get "/api/tweets/:id", params: { id: "xxx" }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 end
