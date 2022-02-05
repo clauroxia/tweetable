@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
     post "/test/tweets", to: "tweets#testcreate", as: "test_create"
+    patch "/test/tweets/:tweet_id", to: "tweets#testupdate", as: "test_update"
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

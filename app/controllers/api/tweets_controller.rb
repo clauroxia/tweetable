@@ -72,6 +72,16 @@ module Api
       end
     end
 
+    def testupdate
+      @tweet = Tweet.find(params[:id])
+      
+      if @tweet.update(tweet_params)
+        render json: @tweet, status: :ok
+      else
+        render json: { errors: @tweet.errors }, status: :unprocessable_entity
+      end
+    end
+
     private
 
     def set_tweet

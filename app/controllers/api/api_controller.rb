@@ -3,7 +3,7 @@ module Api
     include ActionController::HttpAuthentication::Token::ControllerMethods
     include Pundit
     
-    before_action :authorize_token, except: %i[index show replies testcreate]
+    before_action :authorize_token, except: %i[index show replies testcreate testupdate]
     
     rescue_from Pundit::NotAuthorizedError, with: :not_authorized
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
