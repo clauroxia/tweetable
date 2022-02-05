@@ -30,7 +30,7 @@ module Api
       if @tweet.update(tweet_params)
         render json: @tweet, status: :ok
       else
-        render json: { errors: @tweet.errors }, status: :unprocessable_entity
+        render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
@@ -78,7 +78,7 @@ module Api
       if @tweet.update(tweet_params)
         render json: @tweet, status: :ok
       else
-        render json: { errors: @tweet.errors }, status: :unprocessable_entity
+        render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
       end
     end
 

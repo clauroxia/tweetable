@@ -77,16 +77,18 @@ describe 'Tweets', type: :request do
       expect(actual_tweet["body"]).to eql("Updated")
     end
 
-    it "returns http status not found" do
+    it "returns http status unprocessable entity and the errors" do
       user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
       tweet = Tweet.create(body: 'Test for update', user_id: user_to_test.id)
       patch api_test_update_path(tweet), params: { tweet: { body: "" },  id: tweet.id}
+      errors = JSON.parse(response.body)
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(errors["errors"][0]).to eql("Body can't be blank")
     end
   end
 
   describe "destroy path" do
-    it "respond with http success status code" do
+    it "respond with http no content status code" do
       user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
       tweet = Tweet.create(body: 'Test', user_id: user_to_test.id)
       delete api_test_destroy_path, params: { id: tweet.id }
@@ -103,6 +105,23 @@ describe 'Tweets', type: :request do
     it "returns http status not found" do
       delete api_test_destroy_path, params: { id: "fff"}
       expect(response).to have_http_status(:not_found)
+    end
+    
+    it "returns http status not found after search the destroyed tweet" do
+      user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+      tweet = Tweet.create(body: 'Test for destroy', user_id: user_to_test.id)
+      delete api_test_destroy_path, params: { id: tweet.id}
+      get api_tweet_path(tweet)
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "returns the decrement by 1 the total of tweets" do
+      user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+      tweet = Tweet.create(body: 'Test for destroy', user_id: user_to_test.id)
+      get '/api/tweets'
+      tweets = JSON.parse(response.body)
+      delete api_test_destroy_path, params: { id: tweet.id}
+      expect(0).to eql(tweets.size - 1)
     end
   end
 end
