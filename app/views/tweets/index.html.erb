@@ -44,7 +44,7 @@
               <p><%=tweet.replies_count%> </p>
             </div>
             <div class="flex tweet__action--right ">
-              <% if tweet.liked?(current_user) %>
+              <% if user_signed_in? && tweet.liked?(current_user) %>
                 <%= button_to unlike_tweet_path(tweet), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
                   <%=image_tag "icons/heart-active.svg", class: "tweet__action--icon"%>
                 <% end %>
