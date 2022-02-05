@@ -36,4 +36,26 @@ describe 'Tweets', type: :request do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe "create path" do
+    it "respond with http success status code" do
+      # user = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+      post api_tweet_url, params: { body: "Test"}
+      expect(response).to have_http_status(201)
+    end
+
+
+    # it "respond with the correct tweet" do
+    #   user = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+    #   tweet = Tweet.create(body: 'Test', user_id: user.id)
+    #   get api_tweet_path(tweet)
+    #   actual_tweet = JSON.parse(response.body)
+    #   expect(actual_tweet["id"]).to eql(tweet.id)
+    # end
+
+    # it "returns http status not found" do
+    #   get "/api/tweets/:id", params: { id: "xxx" }
+    #   expect(response).to have_http_status(:not_found)
+    # end
+  end
 end
