@@ -39,8 +39,11 @@ describe 'Tweets', type: :request do
 
   describe "create path" do
     it "respond with http success status code" do
-      # user = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
-      post api_tweet_url, params: { body: "Test"}
+      @user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+      post api_login_path, params: { email: "probino@mail.com", password: "letmein" }
+      p token = JSON.parse(response.body)
+      
+      post( api_tweets_path, params: { tweet: {body: "Test"}}, headers: {Authorization: token.values[0]})
       expect(response).to have_http_status(201)
     end
 
