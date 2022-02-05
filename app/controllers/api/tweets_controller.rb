@@ -14,7 +14,7 @@ module Api
 
     def create
       @tweet = Tweet.new(tweet_params)
-      @tweet.user_id = User.first.id
+      @tweet.user_id = current_user.id
       @tweet.parent_id = params["parent_id"] if params["parent_id"]
       
       if @tweet.save
