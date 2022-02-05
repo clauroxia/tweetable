@@ -82,6 +82,12 @@ module Api
       end
     end
 
+    def testdestroy
+      @tweet = Tweet.find(params[:id])
+      @tweet.destroy
+      head :no_content
+    end
+
     private
 
     def set_tweet

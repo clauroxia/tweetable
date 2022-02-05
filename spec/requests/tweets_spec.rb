@@ -81,4 +81,25 @@ describe 'Tweets', type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end
+
+  describe "destroy path" do
+    it "respond with http success status code" do
+      user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+      tweet = Tweet.create(body: 'Test', user_id: user_to_test.id)
+      delete api_test_destroy_path, params: { id: tweet.id }
+      expect(response).to have_http_status(:no_content)
+    end
+
+    it "respond with the tweet already destroyed" do
+      user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
+      tweet = Tweet.create(body: 'Test for destroy', user_id: user_to_test.id)
+      delete api_test_destroy_path, params: {  id: tweet.id }
+      expect(response.body).to eql("")
+    end
+
+    it "returns http status not found" do
+      delete api_test_destroy_path, params: { id: "fff"}
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end
