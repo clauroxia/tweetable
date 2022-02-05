@@ -38,7 +38,7 @@ describe 'Tweets', type: :request do
   end
 
   describe "create path" do
-    it "respond with http success status code" do
+    it "respond with http created status code" do
       user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
       post api_test_create_path, params: { tweet: {body: "Test"}}
       expect(response).to have_http_status(201)
@@ -46,15 +46,18 @@ describe 'Tweets', type: :request do
 
     it "respond with the correct tweet" do
       user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
-      post api_test_create_path, params: { tweet: {body: "Test"}}
+      post api_test_create_path, params: { tweet: {body: "Test for create"}}
       actual_tweet = JSON.parse(response.body)
-      expect(actual_tweet["id"]).to eql(Tweet.all.first.id)
+      expect(actual_tweet["id"]).to eql(Tweet.all.last.id)
+      expect(actual_tweet["body"]).to eql("Test for create")
     end
 
-    it "returns http status not found" do
+    it "returns http status unprocessable entity and the errors" do
       user_to_test = User.create( username: "@probino", name: "probino", email: "probino@mail.com", password: "letmein" )
       post api_test_create_path, params: { tweet: { body: "" }}
+      errors = JSON.parse(response.body)
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(errors["errors"][0]).to eql("Body can't be blank")
     end
   end
 
