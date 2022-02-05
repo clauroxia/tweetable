@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :users, except: %i[new edit]
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
+    post "/test/tweets", to: "tweets#testcreate", as: "test_create"
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

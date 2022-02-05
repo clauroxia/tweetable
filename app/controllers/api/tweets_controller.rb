@@ -60,6 +60,18 @@ module Api
       render json: @parent.replies, status: :ok
     end
 
+    def testcreate
+      @tweet = Tweet.new(tweet_params)
+      @tweet.user_id = User.all.first.id
+      @tweet.parent_id = params["parent_id"] if params["parent_id"]
+      
+      if @tweet.save
+        render json: @tweet, status: :created
+      else
+        render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
     private
 
     def set_tweet
