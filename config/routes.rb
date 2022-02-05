@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :tweets, except: %i[new edit] do
       post "like", on: :member
       delete "unlike", on: :member
+      get "/tweets", to: "tweets#replies", as: "show_replies"
     end
     resources :users, except: %i[new edit]
     post "/login", to: "sessions#create"

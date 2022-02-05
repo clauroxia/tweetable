@@ -55,6 +55,11 @@ module Api
       redirect_to root_path if like_to_destroy.destroy
     end
 
+    def replies
+      @parent = Tweet.find(params["tweet_id"])
+      render json: @parent.replies, status: :ok
+    end
+
     private
 
     def set_tweet
