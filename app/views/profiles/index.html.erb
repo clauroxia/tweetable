@@ -6,7 +6,9 @@
   <div class="profile__data--main_text"><%= @user.name %></div>
   <div class="profile__data--sub_text"><%= @user.username %></div>
   <div class="profile__data--sub_text">Joined on <%= @user.created_at.strftime("%B %d, %Y") %></div>
+  <% if @user.id == current_user.id %>
   <%= link_to "Edit Profile", edit_user_registration_path, class: "button button--primary  mb-4" %>
+  <% end %>
 </div>
 
 <div class="profile__options mb-4">

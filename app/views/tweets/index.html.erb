@@ -1,6 +1,8 @@
 <section class="tweets">
   <h1 class="title mb4">Home</h1>
+  <% if user_signed_in? %>
   <%= render "form", tweet: @tweet %>
+  <% end %>
   <%@tweets.each do |tweet|%>
     <% if tweet.parent_id == nil%>
       <div class="tweet mb-2">
