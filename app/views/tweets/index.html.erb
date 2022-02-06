@@ -3,10 +3,11 @@
   <%= render "form", tweet: @tweet %>
   <%@tweets.each do |tweet|%>
     <% if tweet.parent_id == nil%>
-      <div class="tweet mb-2">
-        <%= link_to tweet_path(tweet) do %>
+      <div onclick="location.href='tweets/<%= tweet.id %>';" class="tweet mb-2">
           <div class="tweet__header">
-            <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__header--icon") if User.find(tweet.user_id).avatar.attached? %>
+            <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
+              <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__header--icon pointer") if User.find(tweet.user_id).avatar.attached? %>
+            <% end %>
             <div class="tweet__header--data">
               <div class="flex">
                 <p class="tweet__header--name">
@@ -24,7 +25,6 @@
               <%=tweet.body%>
             </p>
           </div>
-        <% end %>
         <div class="tweet__actions">
           <% if user_signed_in? && (tweet.user_id == current_user.id || current_user.role == "admin") %>
           <div class="flex">

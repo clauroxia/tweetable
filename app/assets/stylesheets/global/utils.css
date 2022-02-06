@@ -119,3 +119,8 @@
   height: 5px;
   background-color: #a8a8a8;
 }
+
+/* Other */
+.pointer {
+  cursor: pointer;
+}

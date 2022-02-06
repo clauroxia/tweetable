@@ -22,7 +22,7 @@
       <ul class="dropdown-menu">
         <% if user_signed_in? %>
           <li>Welcome <%= current_user.name %></li>
-          <li><%= link_to 'Profile', profiles_path, class: "link" %></li>
+          <li><%= link_to 'Profile', profiles_path(current_user.id), class: "link" %></li>
           <li><%= button_to "Sign out", destroy_user_session_path, class: "button button--secondary", method: :delete %></li>
         <% else %>
           <li><%= link_to 'Log In', user_session_path, class: "button button--primary" %></li>

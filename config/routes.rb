@@ -19,5 +19,5 @@ Rails.application.routes.draw do
     patch "/test/tweets/:tweet_id", to: "tweets#testupdate", as: "test_update"
     delete "/test/tweets", to: "tweets#testdestroy", as: "test_destroy"
   end
-  get "/profiles", to: "profiles#index"
+  get "/profiles/:user_id", to: "profiles#index", as: "profiles"
 end
