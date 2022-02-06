@@ -74,12 +74,23 @@ class TweetsController < ApplicationController
   def like
     like = Like.new(user_id: current_user.id, tweet_id: @tweet.id)
     # redirect_to root_path if like.save
-    redirect_to root_path if like.save
+    if @tweet.parent_id
+      redirect_to tweet_path(@tweet.parent_id) if like.save
+    else
+      redirect_to root_path if like.save
+    end
+    
   end
 
   def unlike
     like_to_destroy = Like.find_by(user_id: current_user.id, tweet_id: @tweet.id)
-    redirect_to root_path if like_to_destroy.destroy
+
+    if @tweet.parent_id
+      redirect_to tweet_path(@tweet.parent_id) if like_to_destroy.destroy
+    else
+      redirect_to root_path if like_to_destroy.destroy
+    end
+
   end
 
   private
