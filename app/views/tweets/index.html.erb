@@ -1,6 +1,8 @@
 <section class="tweets">
   <h1 class="title mb4">Home</h1>
+  <% if user_signed_in? %>
   <%= render "form", tweet: @tweet %>
+  <% end %>
   <%@tweets.each do |tweet|%>
     <% if tweet.parent_id == nil%>
       <div onclick="location.href='tweets/<%= tweet.id %>';" class="tweet mb-2">
@@ -39,7 +41,7 @@
               <% end %>
             </div>
           </div>
-          <% end %>
+          <% end%>
           <div class="flex">
             <div class="flex tweet__action--right">
               <%= link_to tweet_path(tweet)do %>

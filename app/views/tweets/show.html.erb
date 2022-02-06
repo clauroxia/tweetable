@@ -57,16 +57,18 @@
   </div>
   <div class=".gray-line mb-4">
   </div>
-  <%= form_with(model: [@tweet, @new_tweet], method: :post ,class:"form__tweet") do |f| %>
-    <%= error_for(@tweet, :body) %>
-    <div class="field mb-6">
-      <div class="input__container form__tweet--container">
-        <%= f.text_area :body, placeholder: "Something to say about it?", autofocus: true, class: "input__content form__tweet--area"%>
-        <%= f.submit "TWEET",class: "button button--primary" %>
+  <%if user_signed_in? %>
+    <%= form_with(model: [@tweet, @new_tweet], method: :post ,class:"form__tweet") do |f| %>
+      <%= error_for(@tweet, :body) %>
+      <div class="field mb-6">
+        <div class="input__container form__tweet--container">
+          <%= f.text_area :body, placeholder: "Something to say about it?", autofocus: true, class: "input__content form__tweet--area"%>
+          <%= f.submit "TWEET",class: "button button--primary" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
-  <% console %>
+  
   <% @tweet.replies.each do |reply| %>
     <div class="tweet mb-2">
       <%= link_to profiles_path(User.find(reply.user_id).id) do %>
@@ -93,25 +95,35 @@
         <% end %>
       </div>
       <div class="tweet__actions">
-        <div class="flex">
-          <div class="tweet__action--left ">
-            <%= button_to edit_tweet_tweet_path(@tweet, reply), method: :delete, "data-turbo": "false" ,class: "tweet__action--delete" do %>
-              <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
-            <% end %>
+        <% if user_signed_in? && (reply.user_id == current_user.id || current_user.role == "admin") %>
+          <div class="flex">
+            <div class="tweet__action--left ">
+              <%= button_to tweet_tweet_path(@tweet, reply), method: :delete, "data-turbo": "false", "data-turbo": "false" ,class: "tweet__action--delete" do %>
+                <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
+              <% end %>
+            </div>
+            <div class="tweet__action--left ">
+              <%= link_to edit_tweet_tweet_path(@tweet, reply) do %>
+                <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
+              <% end %>
+            </div>
           </div>
-          <div class="tweet__action--left ">
-            <%= link_to tweet_tweet_path(@tweet, reply) do %>
-              <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
-            <% end %>
-          </div>
-        </div>
+        <% end %>
         <div class="flex">
           <div class="flex tweet__action--right">
             <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
             <p><%=reply.replies_count%> </p>
           </div>
           <div class="flex tweet__action--right">
-            <%=image_tag "icons/heart.svg", class: "footer__students--icon"%>
+          <% if user_signed_in? && reply.liked?(current_user) %>
+                <%= button_to unlike_tweet_path(reply), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
+                  <%=image_tag "icons/heart-active.svg", class: "tweet__action--icon"%>
+                <% end %>
+              <% else %>
+                <%= button_to like_tweet_path(reply), class: "flex tweet__action--delete" do %>
+                  <%=image_tag "icons/heart.svg", class: "tweet__action--icon"%>
+                <% end %>
+              <% end %>
             <%=reply.likes_count%>
           </div>
         </div>

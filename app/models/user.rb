@@ -36,4 +36,5 @@ class User < ApplicationRecord
       user.avatar.attach(io: URI.open(auth_hash.info.image.to_s), filename: "#{auth_hash.info.nickname}-avatar.jpg")
     end
   end
+
 end
