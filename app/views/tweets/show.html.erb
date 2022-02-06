@@ -106,7 +106,15 @@
             <p><%=reply.replies_count%> </p>
           </div>
           <div class="flex tweet__action--right">
-            <%=image_tag "icons/heart.svg", class: "footer__students--icon"%>
+          <% if user_signed_in? && reply.liked?(current_user) %>
+                <%= button_to unlike_tweet_path(reply), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
+                  <%=image_tag "icons/heart-active.svg", class: "tweet__action--icon"%>
+                <% end %>
+              <% else %>
+                <%= button_to like_tweet_path(reply), class: "flex tweet__action--delete" do %>
+                  <%=image_tag "icons/heart.svg", class: "tweet__action--icon"%>
+                <% end %>
+              <% end %>
             <%=reply.likes_count%>
           </div>
         </div>
