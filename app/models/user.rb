@@ -37,9 +37,4 @@ class User < ApplicationRecord
     end
   end
 
-  def avatar_default
-    avatar.attached? ? avatar : 'image_prof.le_defaultpng'
-  end
-
-
 end
