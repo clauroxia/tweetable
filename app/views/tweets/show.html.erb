@@ -88,18 +88,20 @@
         </p>
       </div>
       <div class="tweet__actions">
-        <div class="flex">
-          <div class="tweet__action--left ">
-            <%= button_to edit_tweet_tweet_path(@tweet, reply), method: :delete, "data-turbo": "false" ,class: "tweet__action--delete" do %>
-              <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
-            <% end %>
+        <% if user_signed_in? && (reply.user_id == current_user.id || current_user.role == "admin") %>
+          <div class="flex">
+            <div class="tweet__action--left ">
+              <%= button_to tweet_tweet_path(@tweet, reply), method: :delete, "data-turbo": "false", "data-turbo": "false" ,class: "tweet__action--delete" do %>
+                <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
+              <% end %>
+            </div>
+            <div class="tweet__action--left ">
+              <%= link_to edit_tweet_tweet_path(@tweet, reply) do %>
+                <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
+              <% end %>
+            </div>
           </div>
-          <div class="tweet__action--left ">
-            <%= link_to tweet_tweet_path(@tweet, reply) do %>
-              <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
-            <% end %>
-          </div>
-        </div>
+        <% end %>
         <div class="flex">
           <div class="flex tweet__action--right">
             <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
