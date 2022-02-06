@@ -21,6 +21,7 @@
       </p>
     </div>
     <div class="tweet__actions">
+      <% if user_signed_in? && (@tweet.user_id == current_user.id || current_user.role == "admin") %>
       <div class="flex">
         <div class="tweet__action--left ">
           <%= button_to tweet_path(@tweet), method: :delete, "data-turbo": "false" ,class: "tweet__action--delete" do %>
@@ -33,6 +34,7 @@
           <% end %>
         </div>
       </div>
+      <% end %>
       <div class="flex">
         <div class="flex tweet__action--right">
           <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
@@ -43,8 +45,8 @@
             <%= button_to unlike_tweet_path(@tweet), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
               <%=image_tag "icons/heart-active.svg", class: "footer__students--icon"%>
             <% end %>
-          <% else %>
-            <%= button_to unlike_tweet_path(@tweet), method: :delete, data: { turbo: "false" }, class: "flex tweet__action--delete" do %>
+          <% elsif user_signed_in? && !@tweet.liked?(current_user) %>
+            <%= button_to like_tweet_path(@tweet), class: "flex tweet__action--delete" do %>
               <%=image_tag "icons/heart.svg", class: "footer__students--icon"%>
             <% end %>
           <% end %>
