@@ -4,7 +4,7 @@
   
   <div class="card__container">
 
-    <p   class="center-text mb-4 content-lg ">CONTINUE WITH</p>
+    <p class="center-text mb-4 content-lg ">CONTINUE WITH</p>
     <%- if devise_mapping.omniauthable? %>
       <%- resource_class.omniauth_providers.each do |provider| %>
         <div data-turbo="false">
@@ -15,18 +15,17 @@
       <% end %>
     <% end %>
 
-    <p  class="center-text mb-4 content-lg ">OR</p>
-
+    <p class="center-text mb-4 content-lg ">OR</p>
 
     <%= form_for(resource, as: resource_name,url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field mb-4">
-        <%= f.label :username ,"USERNAME"%>
-          <div class="input__container">
-            <%= f.text_field :username ,  class: "input__content", placeholder: "example"%>
-          </div>
+      <%= f.label :username ,"USERNAME"%>
+      <div class="input__container">
+        <%= f.text_field :username ,  class: "input__content", placeholder: "example"%>
       </div>
+    </div>
 
    <div class="field mb-4">
         <%= f.label :email , "EMAIL"%>
@@ -62,11 +61,10 @@
       </div>
 
       <div class="actions mb-4" data-turbo="false">
-        <%= f.submit "Sign up",class: "button button--primary button--max"  %>
+        <%= f.submit "Sign up", class: "button button--primary button--max"  %>
       </div>
     <% end %>
-  <p class="center-text mb-4">Already a member?</p>
+    <p class="center-text mb-4">Already a member?</p>
     <%= render "devise/shared/links" %>
-
   </div>
 </section>

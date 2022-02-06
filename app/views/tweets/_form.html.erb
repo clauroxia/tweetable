@@ -1,4 +1,4 @@
-<%= form_with(model: tweet, method: :post,class:"form__tweet") do |f| %> <%=
+<%= form_with(model: tweet, method: :post, class:"form__tweet") do |f| %> <%=
 error_for(tweet, :body) %>
 <div class="field mb-4">
   <div class="input__container form__tweet--container">
@@ -6,7 +6,6 @@ error_for(tweet, :body) %>
     autofocus: true , class: "input__content form__tweet--area"%>
       <%= f.submit "TWEET",class: "button button--primary" %>
   </div>
-
 </div>
 
 <% end %>

@@ -104,3 +104,14 @@
 .p-0 {
   padding: 0;
 }
+
+/* Sizing */
+.full-width {
+  width: 100% !important;
+}
+
+.gray-line {
+  width: 100%;
+  height: 5px;
+  background-color: #a8a8a8;
+}
