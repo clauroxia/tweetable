@@ -7,8 +7,14 @@
     <% if tweet.parent_id == nil%>
       <div onclick="location.href='tweets/<%= tweet.id %>';" class="tweet mb-2">
           <div class="tweet__header">
-            <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
-              <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__header--icon pointer") if User.find(tweet.user_id).avatar.attached? %>
+            <% if User.find(tweet.user_id).avatar.attached? %>
+              <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
+                <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__header--icon pointer")  %>
+              <% end %>
+            <% else %>
+              <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
+                <%= image_tag "image_profile_default.png", class:"tweet__header--icon pointer"  %>
+              <% end %>
             <% end %>
             <div class="tweet__header--data">
               <div class="flex">

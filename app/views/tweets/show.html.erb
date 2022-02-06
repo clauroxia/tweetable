@@ -2,7 +2,11 @@
   <h2 class="title">Tweet Detail</h2>
   <div  class="tweet mb-4">
     <div class="tweet__header">
-      <%= image_tag(User.find(@tweet.user_id).avatar, class:"tweet__header--icon") if User.find(@tweet.user_id).avatar.attached? %>
+      <% if User.find(@tweet.user_id).avatar.attached? %>
+        <%= image_tag(User.find(@tweet.user_id).avatar, class:"tweet__header--icon") %>
+      <% else %>
+        <%= image_tag "image_profile_default.png", class:"tweet__header--icon pointer"  %>
+      <% end %>
       <div class="tweet__header--data">
         <div class="flex">
           <p class="tweet__header--name">
@@ -73,7 +77,11 @@
     <div class="tweet mb-2">
       <%= link_to profiles_path(User.find(reply.user_id).id) do %>
         <div class="tweet__header pointer">
-            <%= image_tag(User.find(reply.user_id).avatar, class:"tweet__header--icon") if User.find(reply.user_id).avatar.attached? %>
+          <% if User.find(reply.user_id).avatar.attached? %>
+            <%= image_tag(User.find(reply.user_id).avatar, class:"tweet__header--icon") %>
+          <% else %>
+            <%= image_tag "image_profile_default.png", class:"tweet__header--icon" %>
+          <% end %>
           <div class="tweet__header--data">
             <div class="flex">
               <p class="tweet__header--name">
