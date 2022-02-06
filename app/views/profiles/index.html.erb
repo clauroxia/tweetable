@@ -20,24 +20,28 @@
   <% @user.tweets.each do |tweet|%>
     <div class="tweet mb-2 full-width">
       <%= link_to tweet_path(tweet) do %>
-        <div class="tweet__header">
-          <%= image_tag(@user.avatar, class:"tweet__header--icon") if @user.avatar.attached? %>
-          <div class="tweet__header--data">
-            <div class="flex">
-              <p class="tweet__header--name">
-                <%=@user.name%>
-              </p>
-              <p class="tweet__header--user">
-                <%=@user.username%>
-              </p>
+        <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
+          <div class="tweet__header pointer">
+              <%= image_tag(@user.avatar, class:"tweet__header--icon") if @user.avatar.attached? %>
+            <div class="tweet__header--data">
+              <div class="flex">
+                <p class="tweet__header--name">
+                  <%=@user.name%>
+                </p>
+                <p class="tweet__header--user">
+                  <%=@user.username%>
+                </p>
+              </div>
+              <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
             </div>
-            <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
           </div>
-        </div>
+        <% end %>
         <div class="tweet__content">
-          <p class="mb-4 tweet__content--text">
-            <%=tweet.body%>
-          </p>
+          <%= link_to tweet_path(tweet.id) do %>
+            <p class="mb-4 tweet__content--text">
+              <%=tweet.body%>
+            </p>
+          <% end %>
         </div>
       <% end %>
       <div class="tweet__actions">
@@ -84,24 +88,28 @@
     <% tweet_user = User.find(tweet.user_id)%>
     <div class="tweet mb-2 full-width">
       <%= link_to tweet_path(tweet) do %>
-        <div class="tweet__header">
-          <%= image_tag(tweet_user.avatar, class:"tweet__header--icon") if tweet_user.avatar.attached? %>
-          <div class="tweet__header--data">
-            <div class="flex">
-              <p class="tweet__header--name">
-                <%=tweet_user.name%>
-              </p>
-              <p class="tweet__header--user">
-                <%=tweet_user.username%>
-              </p>
+        <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
+          <div class="tweet__header pointer">
+            <%= image_tag(tweet_user.avatar, class:"tweet__header--icon") if tweet_user.avatar.attached? %>
+            <div class="tweet__header--data">
+              <div class="flex">
+                <p class="tweet__header--name">
+                  <%=tweet_user.name%>
+                </p>
+                <p class="tweet__header--user">
+                  <%=tweet_user.username%>
+                </p>
+              </div>
+              <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
             </div>
-            <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
           </div>
-        </div>
+        <% end %>
         <div class="tweet__content">
-          <p class="mb-4 tweet__content--text">
-            <%=tweet.body%>
-          </p>
+          <%= link_to tweet_path(tweet.id) do %>
+            <p class="mb-4 tweet__content--text">
+              <%=tweet.body%>
+            </p>
+          <% end %>
         </div>
       <% end %>
       <div class="tweet__actions">

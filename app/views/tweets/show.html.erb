@@ -68,28 +68,31 @@
       </div>
     <% end %>
   <% end %>
-
-
+  
   <% @tweet.replies.each do |reply| %>
-    <div  class="tweet mb-2">
-      <div class="tweet__header">
-        <%= image_tag(User.find(reply.user_id).avatar, class:"tweet__header--icon") if User.find(reply.user_id).avatar.attached? %>
-        <div class="tweet__header--data">
-          <div class="flex">
-            <p class="tweet__header--name">
-              <%=User.find(reply.user_id).name%>
-            </p>
-            <p class="tweet__header--user">
-              <%=User.find(reply.user_id).username%>
-            </p>
+    <div class="tweet mb-2">
+      <%= link_to profiles_path(User.find(reply.user_id).id) do %>
+        <div class="tweet__header pointer">
+            <%= image_tag(User.find(reply.user_id).avatar, class:"tweet__header--icon") if User.find(reply.user_id).avatar.attached? %>
+          <div class="tweet__header--data">
+            <div class="flex">
+              <p class="tweet__header--name">
+                <%=User.find(reply.user_id).name%>
+              </p>
+              <p class="tweet__header--user">
+                <%=User.find(reply.user_id).username%>
+              </p>
+            </div>
+            <p class="tweet__header--time"><%=time_ago_in_words(reply.updated_at)%> ago</p>
           </div>
-          <p class="tweet__header--time"><%=time_ago_in_words(reply.updated_at)%> ago</p>
         </div>
-      </div>
+      <% end %>
       <div class="tweet__content">
-        <p class="mb-4 tweet__content--text">
-          <%=reply.body%>
-        </p>
+        <%= link_to tweet_path(reply.id) do %>
+          <p class="mb-4 tweet__content--text pointer">
+            <%=reply.body%>
+          </p>
+        <% end %>
       </div>
       <div class="tweet__actions">
         <% if user_signed_in? && (reply.user_id == current_user.id || current_user.role == "admin") %>
