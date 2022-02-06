@@ -5,12 +5,13 @@
   <% end %>
   <%@tweets.each do |tweet|%>
     <% if tweet.parent_id == nil%>
-      <div onclick="location.href='tweets/<%= tweet.id %>';" class="tweet mb-2">
+      <div class="tweet mb-2">
+        <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
           <div class="tweet__header">
             <% if User.find(tweet.user_id).avatar.attached? %>
-              <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
+            
                 <%= image_tag(User.find(tweet.user_id).avatar, class:"tweet__header--icon pointer")  %>
-              <% end %>
+              
             <% else %>
               <%= link_to profiles_path(User.find(tweet.user_id).id) do %>
                 <%= image_tag "image_profile_default.png", class:"tweet__header--icon pointer"  %>
@@ -28,10 +29,13 @@
               <p class="tweet__header--time"><%=time_ago_in_words(tweet.updated_at)%> ago</p>
             </div>
           </div>
+          <% end %>
           <div class="tweet__content">
+          <%= link_to tweet_path(tweet.id) do %>
             <p class="mb-4 tweet__content--text">
               <%=tweet.body%>
             </p>
+          <% end %>
           </div>
         <div class="tweet__actions">
           <% if user_signed_in? && (tweet.user_id == current_user.id || current_user.role == "admin") %>
