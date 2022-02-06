@@ -21,8 +21,18 @@
       </p>
     </div>
     <div class="tweet__actions">
-      <%= link_to "Edit tweet", edit_tweet_path(@tweet)%>
-      <%= button_to "Delete tweet", tweet_path(@tweet), method: :delete, data: { turbo: "false" } %>
+      <div class="flex">
+        <div class="tweet__action--left ">
+          <%= button_to tweet_path(@tweet), method: :delete, "data-turbo": "false" ,class: "tweet__action--delete" do %>
+            <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
+          <% end %>
+        </div>
+        <div class="tweet__action--left ">
+          <%= link_to edit_tweet_path(@tweet) do %>
+            <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
+          <% end %>
+        </div>
+      </div>
       <div class="flex">
         <div class="flex tweet__action--right">
           <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>
@@ -43,11 +53,7 @@
       </div>
     </div>
   </div>
-  <div style="
-    height: 5px;
-    width: 90%;
-    background-color: #A8A8A8;
-" class="mb-4">
+  <div class=".gray-line mb-4">
   </div>
   <%= form_with(model: [@tweet, @new_tweet], method: :post ,class:"form__tweet") do |f| %>
     <%= error_for(@tweet, :body) %>
@@ -80,8 +86,18 @@
         </p>
       </div>
       <div class="tweet__actions">
-        <%= link_to "Edit tweet", edit_tweet_tweet_path(@tweet, reply)%>
-        <%= button_to "Delete tweet", tweet_tweet_path(@tweet, reply), method: :delete, data: { turbo: "false" } %>
+        <div class="flex">
+          <div class="tweet__action--left ">
+            <%= button_to edit_tweet_tweet_path(@tweet, reply), method: :delete, "data-turbo": "false" ,class: "tweet__action--delete" do %>
+              <%=image_tag "icons/delete.svg", class: "tweet__action--icon"%>
+            <% end %>
+          </div>
+          <div class="tweet__action--left ">
+            <%= link_to tweet_tweet_path(@tweet, reply) do %>
+              <%=image_tag "icons/edit.svg", class: "tweet__action--icon"%>
+            <% end %>
+          </div>
+        </div>
         <div class="flex">
           <div class="flex tweet__action--right">
             <%=image_tag "icons/msn.svg", class: "footer__students--icon"%>

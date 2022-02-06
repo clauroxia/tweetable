@@ -1,0 +1,49 @@
+/*INFO*/
+.profile__data {
+  align-items: center;
+  gap: 5px;
+}
+
+.profile__data--icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile__data--main_text {
+  font-size: 1.2rem;
+  color: #303036;
+}
+
+.profile__data--sub_text {
+  font-size: 1.2rem;
+  color: #7a7a7a;
+}
+
+/*Separator*/
+.profile__options {
+  display: flex;
+  justify-content: space-around;
+}
+.info-button {
+  width: 100%;
+  margin: 16px 0;
+  padding: 5px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--gray-300);
+  cursor: pointer;
+}
+.info-button.active {
+  border-bottom: 3px solid var(--primary-500);
+  color: var(--gray-400);
+}
+.tweets-made,
+.tweets-liked {
+  display: none;
+}
+.tweets-made.active,
+.tweets-liked.active {
+  display: block;
+}

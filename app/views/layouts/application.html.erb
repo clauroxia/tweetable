@@ -5,36 +5,33 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-   <header class="header">
-      <div class="container navbar">
-        <a href="/" class="logo">
-          <img
-            src="/logo.png"
-            alt="Codeable"
-            height="28"
-          />
-        </a>
-        <nav>
-          <ul class="navbar-links" role="list">
-            <% if user_signed_in? %>
-            <p>Welcome <%= current_user.name %></p>
-            <% end %>
-            <li><%= link_to 'Users',  class: "link" %></li>
-          </ul>
-        </nav>
-        <%=image_tag "icons/menu.svg", class: "navbar__menu-icon"%>
-        <%=image_tag "icons/close.svg", class: "navbar__menu-icon-close"%>
+  <body class="container">
+    <header class="header">
+      <div class="menu-container">
+        <%=link_to image_tag("logo"), root_path, class: "logo"%>
+        <div class="dropdown-button">
+          <%=image_tag "icons/menu.svg", class: "dropdown-icon menu active"%>
+          <%=image_tag "icons/close.svg", class: "dropdown-icon close"%>
+        </div>
       </div>
+      <ul class="dropdown-menu">
+        <% if current_user %>
+        <li>Welcome <%= current_user.name %></li>
+        <li><%= link_to 'Profile', edit_user_registration_path, class: "link" %></li>
+        <li><%= button_to "Sign out", destroy_user_session_path, class: "button button--secondary", method: :delete %></li>
+        <% end %>
+        <% if !current_user %>
+        <li><%= link_to 'Log In', user_session_path, class: "button button--primary" %></li>
+        <% end %>
+      </ul>   
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </header>
-    </nav>
     <%= yield %>
     <footer class="footer">
       <div class="footer__content">
@@ -70,5 +67,47 @@
         </div>
       </div>
     </footer>
+    <script>
+      // For Menu
+      dropdownButton = document.querySelector(".dropdown-button")
+      dropdownMenu = document.querySelector(".dropdown-menu")
+      openBtn = dropdownButton.querySelector(".dropdown-icon.menu")
+      closeBtn = dropdownButton.querySelector(".dropdown-icon.close")
+
+      dropdownButton.addEventListener("click", () => {
+        if (openBtn.classList.contains("active")){
+          openBtn.classList.remove("active")
+          closeBtn.classList.add("active")
+        } else {
+          openBtn.classList.add("active")
+          closeBtn.classList.remove("active")
+        }
+
+        dropdownMenu.classList.toggle("dropdown-active-menu")
+      });
+
+
+      // For profile
+      madeBtn = document.querySelector(".info-button.made")
+      likesBtn = document.querySelector(".info-button.likes")
+      madeContent = document.querySelector(".tweets-made")
+      likesContent = document.querySelector(".tweets-liked")
+
+      madeBtn.addEventListener("click", () => {
+        madeBtn.classList.add("active")
+        madeContent.classList.add("active")
+
+        likesBtn.classList.remove("active")
+        likesContent.classList.remove("active")
+      });
+
+      likesBtn.addEventListener("click", () => {
+        likesBtn.classList.add("active")
+        likesContent.classList.add("active")
+
+        madeBtn.classList.remove("active")
+        madeContent.classList.remove("active")
+      });
+    </script>
   </body>
 </html>

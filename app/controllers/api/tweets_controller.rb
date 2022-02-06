@@ -43,7 +43,6 @@ module Api
     end
 
     # Custom methods
-
     def like
       like = Like.new(user_id: current_user.id, tweet_id: @tweet.id)
       # redirect_to root_path if like.save

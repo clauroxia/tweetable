@@ -1,21 +1,26 @@
-<div class="heading">Edit tweet</div>
+<h2 class="title center-text">Edit Tweet</h2>
 
 
 <% if @parent_tweet%> 
-  <%= form_with(model: [@parent_tweet, @tweet], method: :patch) do |f| %>
+  <%= form_with(model: [@parent_tweet, @tweet], method: :patch, class:"form__tweet full-width") do |f| %>
     <%= error_for(@tweet, :body) %>
-    <div>
-      <%= f.text_area :body, placeholder: "Write your tweet here...", autofocus: true%>
+    <div class="field mb-4">
+      <div class="input__container form__tweet--container">
+        <%= f.text_area :body, placeholder: "Edit your tweet here...",
+        autofocus: true , class: "input__content form__tweet--area"%>
+          <%= f.submit "Update",class: "button button--primary" %>
+      </div>
     </div>
-      <%= f.submit "Update"%>
   <% end %>
-  
 <% else %>
-  <%= form_with(model: @tweet, method: :patch) do |f| %>
+  <%= form_with(model: @tweet, method: :patch, class:"form__tweet full-width") do |f| %>
     <%= error_for(@tweet, :body) %>
-    <div>
-      <%= f.text_area :body, placeholder: "Write your tweet here...", autofocus: true%>
+    <div class="field mb-4">
+      <div class="input__container form__tweet--container">
+        <%= f.text_area :body, placeholder: "Edit your tweet here...",
+        autofocus: true , class: "input__content form__tweet--area"%>
+          <%= f.submit "Update",class: "button button--primary" %>
+      </div>
     </div>
-      <%= f.submit "Update"%>
   <% end %>
 <% end %>

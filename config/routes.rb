@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     post "like", on: :member
     delete "unlike", on: :member
   end
-
   namespace :api do
     resources :tweets, except: %i[new edit] do
       post "like", on: :member
@@ -20,5 +19,5 @@ Rails.application.routes.draw do
     patch "/test/tweets/:tweet_id", to: "tweets#testupdate", as: "test_update"
     delete "/test/tweets", to: "tweets#testdestroy", as: "test_destroy"
   end
-
+  get "/profiles", to: "profiles#index"
 end

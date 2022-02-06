@@ -1,5 +1,5 @@
 <section class="tweets">
-  <h2 class="title">Home</h2>
+  <h1 class="title mb4">Home</h1>
   <%= render "form", tweet: @tweet %>
   <%@tweets.each do |tweet|%>
     <% if tweet.parent_id == nil%>
