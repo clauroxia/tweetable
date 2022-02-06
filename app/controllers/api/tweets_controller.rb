@@ -30,7 +30,7 @@ module Api
       if @tweet.update(tweet_params)
         render json: @tweet, status: :ok
       else
-        render json: { errors: @tweet.errors }, status: :unprocessable_entity
+        render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
@@ -57,6 +57,34 @@ module Api
     def replies
       @parent = Tweet.find(params["tweet_id"])
       render json: @parent.replies, status: :ok
+    end
+
+    def testcreate
+      @tweet = Tweet.new(tweet_params)
+      @tweet.user_id = User.all.first.id
+      @tweet.parent_id = params["parent_id"] if params["parent_id"]
+      
+      if @tweet.save
+        render json: @tweet, status: :created
+      else
+        render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
+    def testupdate
+      @tweet = Tweet.find(params[:id])
+      
+      if @tweet.update(tweet_params)
+        render json: @tweet, status: :ok
+      else
+        render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
+    def testdestroy
+      @tweet = Tweet.find(params[:id])
+      @tweet.destroy
+      head :no_content
     end
 
     private

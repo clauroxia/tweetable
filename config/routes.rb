@@ -15,10 +15,9 @@ Rails.application.routes.draw do
     resources :users, except: %i[new edit]
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
+    post "/test/tweets", to: "tweets#testcreate", as: "test_create"
+    patch "/test/tweets/:tweet_id", to: "tweets#testupdate", as: "test_update"
+    delete "/test/tweets", to: "tweets#testdestroy", as: "test_destroy"
   end
   get "/profiles", to: "profiles#index"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
